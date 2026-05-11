@@ -5,8 +5,8 @@
 struct Object {
 	std::string name;
 
-	float x;
-	float y;
+	double x;
+	double y;
 
 	std::string type;
 
