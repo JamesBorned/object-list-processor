@@ -1,7 +1,9 @@
 #include "DistanceGrouping.h"
 #include "Object.h"
+#include <algorithm>
+#include "Utils.h"
 
-map<string, vector<int>> DistanceGrouping::groupByCriterion(const vector<Object>& objectList) {
+map<string, vector<int>> DistanceGrouping::groupByCriterion(vector<Object>& objectList) {
 	map<string, vector<int>> groupByDistanceList;
 
 	vector<int> lessThan100;
@@ -25,8 +27,21 @@ map<string, vector<int>> DistanceGrouping::groupByCriterion(const vector<Object>
 		}
 	}
 
+	sortByDistance(lessThan100, objectList);
+	sortByDistance(lessThan1000, objectList);
+	sortByDistance(lessThan10000, objectList);
+	sortByDistance(tooFar, objectList);
+
 	groupByDistanceList.insert({ "less than 100", lessThan100 });
 	groupByDistanceList.insert({ "less than 1000", lessThan1000 });
 	groupByDistanceList.insert({ "less than 10000", lessThan10000 });
 	groupByDistanceList.insert({ "too far", tooFar });
+
+	return groupByDistanceList;
+}
+
+void DistanceGrouping::sortByDistance(vector<int>& distanceGroupVector, vector<Object>& objectList) {
+	std::sort(begin(distanceGroupVector), end(distanceGroupVector), [&objectList](int a, int b) {
+		return objectList[a].distance < objectList[b].distance;
+	});
 }

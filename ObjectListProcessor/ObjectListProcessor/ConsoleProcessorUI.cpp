@@ -4,6 +4,9 @@
 #include "Utils.h"
 #include "Object.h"
 #include "ObjectListRepository.h"
+#include "IGrouping.h"
+
+using namespace std;
 
 ConsoleProcessorUI::ConsoleProcessorUI(ObjectListRepository& repository) {
 	this->menuCommands = { "Upload a file.", "Process the list of objects.", "Save the results to a file.", "Exit"};
@@ -18,6 +21,7 @@ void ConsoleProcessorUI::run() {
     bool isCanceled = false;
 
     std::string commandNumber = "0";
+    std::string groupingCriterion = "0";
 
     while (commandNumber != "4") {
 
@@ -57,7 +61,7 @@ void ConsoleProcessorUI::run() {
                 std::getline(std::cin, fileName);
 
                 if (fileName.empty()) {
-                    cout << "Cancel.\n";
+                    cout << "Cancel." << endl;
                     commandNumber = "0";
 
                     break;
@@ -85,7 +89,28 @@ void ConsoleProcessorUI::run() {
 
                 showCriteriaMenu();
 
-                cout << "Enter criteria"
+                cout << "Select an action. Enter the criterion (from 1 to " << this->criteriaMenu.size() << ") or just Enter to cancel : ";
+                
+                std::getline(std::cin, groupingCriterion);
+
+                if (groupingCriterion.empty()) {
+                    cout << "Cancel." << endl;
+                    commandNumber = "0";
+
+                    break;
+                }
+
+                if (isNumber(groupingCriterion) && stoi(groupingCriterion) > 0 && stoi(groupingCriterion) <= criteriaMenu.size()) {
+                    IG
+                }
+                else {
+                    commandNumber = "0";
+
+                    std::cerr << "Error: Wrong number dialed, try again." << endl;
+
+                    break;
+                }
+                
                 break;
             }
             case 3: {
