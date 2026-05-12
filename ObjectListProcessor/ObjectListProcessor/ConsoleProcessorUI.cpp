@@ -212,11 +212,11 @@ bool ConsoleProcessorUI::isResultListLoaded(string resultFileName) {
             out << endl;
 
             for (int i = 0; i < group.second.size(); ++i) {
-                out << repository->getObjectList()[i].name << " "
-                    << repository->getObjectList()[i].x << " "
-                    << repository->getObjectList()[i].y << " "
-                    << repository->getObjectList()[i].type << " "
-                    << repository->getObjectList()[i].dateInSeconds << endl;
+                out << repository->getObjectList()[group.second[i]].name << " "
+                    << repository->getObjectList()[group.second[i]].x << " "
+                    << repository->getObjectList()[group.second[i]].y << " "
+                    << repository->getObjectList()[group.second[i]].type << " "
+                    << repository->getObjectList()[group.second[i]].dateInSeconds << endl;
             }
 
             out << endl;
