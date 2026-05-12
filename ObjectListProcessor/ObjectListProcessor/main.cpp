@@ -16,6 +16,10 @@ using namespace std;
 
 int main()
 {
+    cout << APP_NAME << ", version " << APP_VERSION << endl;
+
+    cout << endl;
+
     ObjectListRepository repository;
     ConsoleProcessorUI ConsoleUI(repository);
 
