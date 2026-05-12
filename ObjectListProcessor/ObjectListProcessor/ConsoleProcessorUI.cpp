@@ -5,8 +5,9 @@
 #include "Object.h"
 #include "ObjectListRepository.h"
 
-ConsoleProcessorUI::ConsoleProcessorUI() {
+ConsoleProcessorUI::ConsoleProcessorUI(ObjectListRepository& repository) {
 	this->menuCommands = { "Upload a file.", "Process the list of objects.", "Save the results to a file.", "Exit"};
+    this->repository = &repository;
 };
 
 void ConsoleProcessorUI::run() {
@@ -20,7 +21,7 @@ void ConsoleProcessorUI::run() {
 
         switch (stoi(commandNumber)) {
 
-            case 0:
+            case 0: {
 
                 std::cout << "Select an action. Enter the command number (from 1 to " << this->menuCommands.size() << ") or just Enter to cancel: ";
 
@@ -28,6 +29,8 @@ void ConsoleProcessorUI::run() {
 
                 if (commandNumber.empty()) {
                     std::cout << "Cancel." << std::endl;
+                    commandNumber = "0";
+
                     break;
                 }
 
@@ -37,13 +40,12 @@ void ConsoleProcessorUI::run() {
                 else {
                     commandNumber = "0";
 
-                    std::cerr << "Error: Wrong number dialed, try again: ";
+                    std::cerr << "Error: Wrong number dialed, try again." << endl;
 
                     break;
                 }
-            case 1:
-
-                std::cin.ignore();
+            }
+            case 1: {
 
                 std::cout << "Enter the file name(f.e. data.txt), Enter - cancel: ";
 
@@ -54,24 +56,39 @@ void ConsoleProcessorUI::run() {
 
                 if (fileName.empty()) {
                     cout << "Cancel.\n";
+                    commandNumber = "0";
+
                     break;
                 }
 
-                std::vector<Object> objectList;
-
                 while (isWrongFileName) {
-                    objectList = readObjectListFile(fileName);
+                    repository->setFileName(fileName);
+                    repository->loadObjectList();
 
-                    if (!objectList.empty()) {
+                    if (!repository->getObjectList().empty()) {
                         isWrongFileName = false;
+                        cout << "File is loaded!" << endl;
+
+                        commandNumber = "0";
                     }
                     else {
-                        cout << "Error: Something went wrong. Try again.";
+                        cerr << "Error: Something went wrong. Try again." << endl;
                         break;
                     }
                 }
-                
 
+                break;
+            }
+            case 2: {
+
+                break;
+            }
+            case 3: {
+                break;
+            }
+            case 4: {
+                break;
+            }
         }
     }
 

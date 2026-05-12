@@ -24,6 +24,9 @@
     <ClCompile Include="ConsoleProcessorUI.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="ObjectListRepository.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Object.h">
@@ -33,6 +36,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="ConsoleProcessorUI.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectListRepository.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
