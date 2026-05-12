@@ -1,67 +1,39 @@
 ﻿#include "GroupingFactory.h"
+#include "IGrouping.h"
+#include <iostream>
 
-IGrouping* GroupingFactory(const std::string& funcName)
+IGrouping* GroupingFactory(std::string& processingCriterion)
 {
-	Function* function = nullptr;
+	IGrouping* grouping = nullptr;
 
-	if (funcName == "Line")
+	if (processingCriterion == "Distance")
 	{
-		function = new Line();
-		return function;
-		/*double a = 0, b = 0, c = 0;
+		grouping = new DistanceGrouping();
 
-		std::cout << "Ââåäèòå óãëîâîé êîýôôèöèåíò k: ";
-		std::cin >> a;
-		std::cout << '\n';
-		std::cout << "Ââåäèòå çíà÷åíèå ñìåùåíèÿ ïðÿìîé îòíîñèòåëüíî îñè x: ";
-		std::cin >> b;
-		std::cout << '\n';
-
-		Line f;
-
-		f.SurfaceArea(a, b, c);*/
-		//f.VisualisationOfSurface(0, a, b, c, m_points);
+		return grouping;
 	}
-	else if (funcName == "Parallel")
+	/*else if (processingCriterion == "Name")
 	{
-		function = new Parallel();
-		return function;
-		//double a = 0, b = 0, c = 0;
+		grouping = new NameGrouping();
 
-		//std::cout << "Ââåäèòå ÷èñëî: ";
-		//std::cin >> a;
-		//std::cout << '\n';
-
-		//Parallel f;
-
-		//f.SurfaceArea(a, b, c);
-		//f.VisualisationOfSurface(0, a, b, c, m_points);
+		return grouping;
 	}
-	else if (funcName == "Parabola")
+	else if (processingCriterion == "Date")
 	{
-		function = new Parabola();
-		return function;
-		/*double a = 0, b = 0, c = 0;
+		grouping = new DateGrouping();
 
-		std::cout << "Ââåäèòå ïàðàìåòð a: ";
-		std::cin >> a;
-		std::cout << '\n';
-		std::cout << "Ââåäèòå ïàðàìåòð b: ";
-		std::cin >> b;
-		std::cout << '\n';
-		std::cout << "Ââåäèòå ïàðàìåòð c: ";
-		std::cin >> c;
-		std::cout << '\n';
-
-		Parabola f;*/
-
-		//f.SurfaceArea(a, b, c);
-		//f.VisualisationOfSurface(0, a, b, c, m_points);
+		return grouping;
 	}
+	else if (processingCriterion == "Type")
+	{
+		grouping = new TypeGrouping();
+
+		return grouping;
+	}*/
 	else {
-		std::cout << "ERROR" << '\n';
+		cerr << "Error: Something went wrong. Try again." << '\n';
 		return nullptr;
 	}
 
-	return function;
+	return grouping;
 }
