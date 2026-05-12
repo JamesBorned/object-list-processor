@@ -1,30 +1,31 @@
 ﻿#include "GroupingFactory.h"
 #include "IGrouping.h"
 #include <iostream>
+#include "DistanceGrouping.h"
 
 IGrouping* GroupingFactory(std::string& processingCriterion)
 {
 	IGrouping* grouping = nullptr;
 
-	if (processingCriterion == "Distance")
+	if (processingCriterion == "1")
 	{
 		grouping = new DistanceGrouping();
 
 		return grouping;
 	}
-	/*else if (processingCriterion == "Name")
+	/*else if (processingCriterion == "2")
 	{
 		grouping = new NameGrouping();
 
 		return grouping;
 	}
-	else if (processingCriterion == "Date")
+	else if (processingCriterion == "3")
 	{
 		grouping = new DateGrouping();
 
 		return grouping;
 	}
-	else if (processingCriterion == "Type")
+	else if (processingCriterion == "4")
 	{
 		grouping = new TypeGrouping();
 

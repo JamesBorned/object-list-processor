@@ -3,7 +3,7 @@
 #include <iostream>
 #include <fstream>
 
-vector<Object>& ObjectListRepository::readObjectListFile(string& objectListFilePath) {
+vector<Object> ObjectListRepository::readObjectListFile(string& objectListFilePath) {
     std::vector<Object> objectList;
 
     std::ifstream in(objectListFilePath);

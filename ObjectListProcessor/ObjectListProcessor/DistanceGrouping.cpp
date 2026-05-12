@@ -2,6 +2,9 @@
 #include "Object.h"
 #include <algorithm>
 #include "Utils.h"
+#include <iostream>
+
+using namespace std;
 
 map<string, vector<int>> DistanceGrouping::groupByCriterion(vector<Object>& objectList) {
 	map<string, vector<int>> groupByDistanceList;

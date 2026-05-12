@@ -5,6 +5,8 @@
 #include "Object.h"
 #include "ObjectListRepository.h"
 #include "IGrouping.h"
+#include "GroupingFactory.h"
+#include <fstream>
 
 using namespace std;
 
@@ -17,8 +19,6 @@ ConsoleProcessorUI::ConsoleProcessorUI(ObjectListRepository& repository) {
 
 void ConsoleProcessorUI::run() {
     showMenu();
-
-    bool isCanceled = false;
 
     std::string commandNumber = "0";
     std::string groupingCriterion = "0";
@@ -53,7 +53,7 @@ void ConsoleProcessorUI::run() {
             }
             case 1: {
 
-                std::cout << "Enter the file name(f.e. data.txt), Enter - cancel: ";
+                std::cout << "Enter the file name (f.e. data.txt), Enter - cancel: ";
 
                 bool isWrongFileName = true;
 
@@ -71,9 +71,9 @@ void ConsoleProcessorUI::run() {
                     repository->setFileName(fileName);
                     repository->loadObjectList();
 
-                    if (!repository->getObjectList().empty()) {
+                    if (repository->loadObjectList()) {
                         isWrongFileName = false;
-                        cout << "File is loaded!" << endl;
+                        cout << "File was loaded!" << endl;
 
                         commandNumber = "0";
                     }
@@ -101,7 +101,11 @@ void ConsoleProcessorUI::run() {
                 }
 
                 if (isNumber(groupingCriterion) && stoi(groupingCriterion) > 0 && stoi(groupingCriterion) <= criteriaMenu.size()) {
-                    IG
+                    processObjectList(groupingCriterion);
+
+                    cout << "Object list was processed!" << endl;
+
+                    commandNumber = "0";
                 }
                 else {
                     commandNumber = "0";
@@ -114,15 +118,38 @@ void ConsoleProcessorUI::run() {
                 break;
             }
             case 3: {
-                break;
-            }
-            case 4: {
+
+                std::cout << "Enter the result file name (f.e. data_result.txt), Enter - cancel: ";
+
+                bool isWrongFileName = true;
+
+                std::string resultFileName;
+                std::getline(std::cin, resultFileName);
+
+                if (resultFileName.empty()) {
+                    cout << "Cancel." << endl;
+                    commandNumber = "0";
+
+                    break;
+                }
+
+                while (isWrongFileName) {
+                    if(isResultListLoaded(resultFileName) && !this->groups.empty()){
+                        isWrongFileName = false;
+                        cout << "The result list was written!" << endl;
+
+                        commandNumber = "0";
+                    }
+                    else {
+                        cerr << "Error: Something went wrong. Try again." << endl;
+                        break;
+                    }
+                }
+
                 break;
             }
         }
-    }
-
-    
+    }  
 }
 
 void ConsoleProcessorUI::showMenu() {
@@ -151,6 +178,57 @@ void ConsoleProcessorUI::showCriteriaMenu() {
     }
 }
 
-void processObjectList(std::string& groupCriterion) {
+void ConsoleProcessorUI::processObjectList(std::string& groupCriterion) {
+    IGrouping* grouping = GroupingFactory(groupCriterion);
 
+    if (grouping == nullptr) {
+        cerr << "Error: Something went wrong." << endl;
+        return;
+    }
+
+    this->groups = grouping->groupByCriterion(repository->getObjectList());
+
+    delete grouping;
+}
+
+map<string, vector<int>>& ConsoleProcessorUI::getGroups() {
+    return this->groups;
+}
+
+void ConsoleProcessorUI::setGroups(map<string, vector<int>>& groups) {
+    this->groups = groups;
+}
+
+bool ConsoleProcessorUI::isResultListLoaded(string resultFileName) {
+    
+    std::ofstream out(resultFileName);
+
+    if (out.is_open())
+    {
+        for (auto& group : groups) {
+
+            out << group.first << ": " << endl;
+
+            out << endl;
+
+            for (int i = 0; i < group.second.size(); ++i) {
+                out << repository->getObjectList()[i].name << " "
+                    << repository->getObjectList()[i].x << " "
+                    << repository->getObjectList()[i].y << " "
+                    << repository->getObjectList()[i].type << " "
+                    << repository->getObjectList()[i].dateInSeconds << endl;
+            }
+
+            out << endl;
+        }
+    }
+    else {
+        cerr << "Error: something went wrong. Try again. " << endl;
+
+        return false;
+    }
+
+    out.close();
+
+    return true;
 }

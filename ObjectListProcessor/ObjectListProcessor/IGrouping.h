@@ -9,6 +9,6 @@ using namespace std;
 
 class IGrouping {
 	public:
-		virtual map<string, vector<int>> groupByCriterion(const vector<Object>& objectList) = 0;
+		virtual map<string, vector<int>> groupByCriterion(vector<Object>& objectList) = 0;
 		virtual ~IGrouping() = default;
 };

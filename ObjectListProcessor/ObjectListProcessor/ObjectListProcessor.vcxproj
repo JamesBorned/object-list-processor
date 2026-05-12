@@ -124,12 +124,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ConsoleProcessorUI.cpp" />
+    <ClCompile Include="DistanceGrouping.cpp" />
+    <ClCompile Include="GroupingFactory.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ObjectListRepository.cpp" />
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsoleProcessorUI.h" />
+    <ClInclude Include="DistanceGrouping.h" />
+    <ClInclude Include="GroupingFactory.h" />
+    <ClInclude Include="IGrouping.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="ObjectListRepository.h" />
     <ClInclude Include="Utils.h" />

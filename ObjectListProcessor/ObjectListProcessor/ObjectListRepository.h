@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include "Object.h"
+#include <map>
 
 using namespace std;
 
@@ -20,5 +21,5 @@ class ObjectListRepository {
 		string fileName;
 		vector<Object> objectList;
 
-		vector<Object>& readObjectListFile(string& objectListFilePath);
+		vector<Object> readObjectListFile(string& objectListFilePath);
 };
