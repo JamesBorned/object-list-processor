@@ -56,7 +56,7 @@ void ObjectListRepository::setFileName(string& fileName) {
 }
 
 vector<Object>& ObjectListRepository::getObjectList() {
-    return objectList;
+    return this->objectList;
 }
 
 void ObjectListRepository::setObjectList(vector<Object>& objectList) {
