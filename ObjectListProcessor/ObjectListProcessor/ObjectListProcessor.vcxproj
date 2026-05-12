@@ -123,10 +123,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ConsoleProcessorUI.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ConsoleProcessorUI.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Utils.h" />
   </ItemGroup>

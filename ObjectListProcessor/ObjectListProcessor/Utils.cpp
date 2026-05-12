@@ -8,3 +8,13 @@ double calculateDistance(double x, double y) {
 
 	return distance;
 }
+
+bool isNumber(std::string& string) {
+    for (char c : string) {
+        if (!std::isdigit(c)) {
+            return false;
+        }
+    }
+
+    return true;  
+}

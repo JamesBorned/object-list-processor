@@ -6,6 +6,7 @@
 #include "Object.h"
 #include <fstream>
 #include "Utils.h"
+#include <string>
 
 #define APP_NAME "Object List Processor"
 #define APP_VERSION "1.0"
@@ -81,21 +82,32 @@ int main()
 
     cout << "Select an action. Enter the command number (from 1 to " << menuCommands.size() << "): ";
 
-    int commandNumber = 0;
+    string commandNumber = 0;
     bool isWrongCommandNumber = true;
 
     while (isWrongCommandNumber) {
-        cin >> commandNumber;
+        std::getline(cin, commandNumber);
+
+        if(commandNumber.empty()) {
+            cout << "Cancel.";
+            break;
+        }
 
         if (commandNumber > 0 && commandNumber <= menuCommands.size()) {
             isWrongCommandNumber = false;
         }
-        else if (commandNumber == '/n') {
-            cerr << "Error: Wrong number dialed, try again: ";
-        }
         else {
             cerr << "Error: Wrong number dialed, try again: ";
         }
+    }
+
+    cin.ignore(); // очистка после предыдущего cin >> choice
+    cout << "Введите имя файла (Enter - отмена): ";
+    string fname;
+    getline(cin, fname);
+    if (fname.empty()) {
+        cout << "Отмена.\n";
+        break;
     }
 
     if (commandNumber == 1) {
