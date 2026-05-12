@@ -7,6 +7,8 @@
 
 ConsoleProcessorUI::ConsoleProcessorUI(ObjectListRepository& repository) {
 	this->menuCommands = { "Upload a file.", "Process the list of objects.", "Save the results to a file.", "Exit"};
+    this->criteriaMenu = { "Group by distance." };
+
     this->repository = &repository;
 };
 
@@ -81,6 +83,9 @@ void ConsoleProcessorUI::run() {
             }
             case 2: {
 
+                showCriteriaMenu();
+
+                cout << "Enter criteria"
                 break;
             }
             case 3: {
@@ -104,6 +109,19 @@ void ConsoleProcessorUI::showMenu() {
 
     for (int i = 0; i < this->menuCommands.size(); ++i) {
         std::cout << i + 1 << ". " << menuCommands[i] << std::endl;
+        std::cout << "---------------------------" << std::endl;
+    }
+}
+
+void ConsoleProcessorUI::showCriteriaMenu() {
+    std::cout << std::endl;
+
+    std::cout << "CRITERIA MENU:" << std::endl;
+
+    std::cout << std::endl;
+
+    for (int i = 0; i < this->criteriaMenu.size(); ++i) {
+        std::cout << i + 1 << ". " << criteriaMenu[i] << std::endl;
         std::cout << "---------------------------" << std::endl;
     }
 }
